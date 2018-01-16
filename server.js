@@ -8,11 +8,25 @@ mongoose.connect('mongodb://localhost/spacebookDB', function() {
 
 var Post = require('./models/postModel');
 
+var post1 = new Post({text: 'Nice day!', comments: [{text: "Mamamio", user: "Olga"}]});
+var post2 = new Post({text: 'Really nice day!', comments: []});
+
+
+// post1.save();
+// post2.save();
+
 var app = express();
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.get('/posts', function(req, res) {
+  Post.find(function (error, result){
+    if(error) { return console.error(error); }
+    res.send(result);
+  });
+});
 
 
 // You will need to create 5 server routes
