@@ -28,16 +28,35 @@ app.get('/posts', function(req, res) {
   });
 });
 
+app.post('/posts', function(req, res) {
+    var newPost = new Post(req.body);
+    console.log(newPost);
+    newPost.save(function(error, data){
+      if(error) { return console.error(error); }
+    res.send(data);
+    });
+});
+
+app.delete('/delete/:postId', function(req, res) {
+  var postId = req.params.postId;
+  Post.remove({ _id: postId }, function(err) {
+    if (err) throw err;
+
+    console.log('Person deleted!');
+    res.send();
+  });
+});
+
 
 // You will need to create 5 server routes
 // These will define your API:
 
-// 1) to handle getting all posts and their comments
+// 1) to handle getting all posts and their comments DONE
 // 2) to handle adding a post
 // 3) to handle deleting a post
 // 4) to handle adding a comment to a post
 // 5) to handle deleting a comment from a post
 
-app.listen(8000, function() {
+app.listen(8010, function() {
   console.log("what do you want from me! get me on 8000 ;-)");
 });
