@@ -77,19 +77,42 @@ var SpacebookApp = function() {
       error: function(jqXHR, textStatus, errorThrown) {
         console.log(textStatus);
       }
-
     });
   };
 
   var addComment = function(newComment, postIndex) {
-    posts[postIndex].comments.push(newComment);
+    var postId = posts[postIndex]._id;
+    $.ajax({
+      method:"POST",
+      url:'/posts/'+postId+'/comments',
+      data: newComment,
+      success: function(data){
+        console.log(data);
+        posts[postIndex].comments.push(data.comments[data.comments.length-1]);
     _renderComments(postIndex);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus);
+      }
+    });
   };
 
 
   var deleteComment = function(postIndex, commentIndex) {
-    posts[postIndex].comments.splice(commentIndex, 1);
-    _renderComments(postIndex);
+    var postId = posts[postIndex]._id;
+    var commId = posts[postIndex].comments[commentIndex]._id;
+    $.ajax({
+      method: 'DELETE',
+      url: '/delete/'+postId+'/'+commId,
+      success: function() {
+        posts[postIndex].comments.splice(commentIndex, 1);
+        _renderComments(postIndex);;
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus);
+      }
+    });
+    
   };
 
   return {

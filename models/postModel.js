@@ -7,13 +7,14 @@ var mongoose = require('mongoose');
 var commentSchema = new mongoose.Schema({
     text: String,
     user: String
-});
+}, { usePushEach: true });
 
 
 var postSchema = new mongoose.Schema({
     text: String,
-    comments: [commentSchema]
-});
+    comments: [commentSchema],
+    
+}, { usePushEach: true });
 
 var Post = mongoose.model('post', postSchema);
 
