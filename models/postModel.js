@@ -12,7 +12,7 @@ var commentSchema = new mongoose.Schema({
 
 var postSchema = new mongoose.Schema({
     text: String,
-    comment: [commentSchema]
+    comments: [commentSchema]
 });
 
 var Post = mongoose.model('post', postSchema);
