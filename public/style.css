@@ -13,3 +13,19 @@
 .comments-container {
     display: none;
 }
+
+.remove-post {
+    display: inline-block;
+    /* margin-left: 300px; */
+}
+
+.btn-comm  {
+    display: inline-block;
+    margin-left: 270px;
+    border: 1px solid rgba(9, 113, 250, 0.521);
+}
+
+#sortable div { 
+    padding-left: 10px;
+    margin: 5px; 
+}

@@ -88,7 +88,7 @@ var SpacebookApp = function() {
       data: newComment,
       success: function(data){
         console.log(data);
-        posts[postIndex].comments.push(data.comments[data.comments.length-1]);
+        posts[postIndex].comments = data.comments;
     _renderComments(postIndex);
       },
       error: function(jqXHR, textStatus, errorThrown) {
@@ -104,8 +104,9 @@ var SpacebookApp = function() {
     $.ajax({
       method: 'DELETE',
       url: '/delete/'+postId+'/'+commId,
-      success: function() {
-        posts[postIndex].comments.splice(commentIndex, 1);
+      success: function(data) {
+        console.log(data);
+        posts[postIndex].comments = data.comments;
         _renderComments(postIndex);;
       },
       error: function(jqXHR, textStatus, errorThrown) {

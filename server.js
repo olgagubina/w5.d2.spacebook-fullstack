@@ -72,10 +72,10 @@ app.delete('/delete/:postId/:commId', function(req, res) {
   Post.findById({ _id: postId }, function(err, doc) {
     if (err) throw err;
     doc.comments.id(commId).remove();
-    doc.save(function(err){
+    doc.save(function(err, data){
       if (err) throw err;
       console.log('Comment deleted!');
-      res.send();
+      res.send(data);
     });
   });
 });
